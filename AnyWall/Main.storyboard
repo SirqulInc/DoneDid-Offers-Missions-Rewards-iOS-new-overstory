@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!-- SCENE 1 — DDWallViewController -->
+        <scene sceneID="w1S-00-s01">
+            <objects>
+                <viewController id="w1V-00-v01" customClass="DDWallViewController" customModule="DoneDid" customModuleProvider="target" sceneMemberID="viewController" storyboardIdentifier="DDWallViewController">
+                    <view key="view" contentMode="scaleToFill" id="w1W-00-w01">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="w1M-mv-001">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="378"/>
+                                <connections>
+                                    <outlet property="delegate" destination="w1V-00-v01" id="w1C-md-001"/>
+                                </connections>
+                            </mapView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="w1G-sc-001">
+                                <rect key="frame" x="0.0" y="378" width="393" height="32"/>
+                                <segments>
+                                    <segment title="Offers"/>
+                                    <segment title="Posts"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentSwitched:" destination="w1V-00-v01" eventType="valueChanged" id="w1C-ss-001"/>
+                                </connections>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" translatesAutoresizingMaskIntoConstraints="NO" id="w1T-tv-001">
+                                <rect key="frame" x="0.0" y="410" width="393" height="378"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="w1V-00-v01" id="w1C-ds-001"/>
+                                    <outlet property="delegate" destination="w1V-00-v01" id="w1C-td-001"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="w1S-sa-g01"/>
+                        <constraints>
+                            <constraint firstItem="w1M-mv-001" firstAttribute="top" secondItem="w1S-sa-g01" secondAttribute="top" id="w1C-c001"/>
+                            <constraint firstItem="w1M-mv-001" firstAttribute="leading" secondItem="w1S-sa-g01" secondAttribute="leading" id="w1C-c002"/>
+                            <constraint firstItem="w1S-sa-g01" firstAttribute="trailing" secondItem="w1M-mv-001" secondAttribute="trailing" id="w1C-c003"/>
+                            <constraint firstItem="w1G-sc-001" firstAttribute="top" secondItem="w1M-mv-001" secondAttribute="bottom" id="w1C-c004"/>
+                            <constraint firstItem="w1G-sc-001" firstAttribute="leading" secondItem="w1S-sa-g01" secondAttribute="leading" id="w1C-c005"/>
+                            <constraint firstItem="w1S-sa-g01" firstAttribute="trailing" secondItem="w1G-sc-001" secondAttribute="trailing" id="w1C-c006"/>
+                            <constraint firstItem="w1T-tv-001" firstAttribute="top" secondItem="w1G-sc-001" secondAttribute="bottom" id="w1C-c007"/>
+                            <constraint firstItem="w1T-tv-001" firstAttribute="leading" secondItem="w1S-sa-g01" secondAttribute="leading" id="w1C-c008"/>
+                            <constraint firstItem="w1S-sa-g01" firstAttribute="trailing" secondItem="w1T-tv-001" secondAttribute="trailing" id="w1C-c009"/>
+                            <constraint firstItem="w1S-sa-g01" firstAttribute="bottom" secondItem="w1T-tv-001" secondAttribute="bottom" id="w1C-c010"/>
+                            <constraint firstItem="w1M-mv-001" firstAttribute="height" secondItem="w1T-tv-001" secondAttribute="height" id="w1C-c011"/>
+                        </constraints>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="w1M-mv-001" id="w1C-o001"/>
+                        <outlet property="wallTableView" destination="w1T-tv-001" id="w1C-o002"/>
+                        <outlet property="postSegmentedControl" destination="w1G-sc-001" id="w1C-o003"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w1R-fr-r01" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="0" y="0"/>
+        </scene>
+        <!-- SCENE 2 — DDSettingsViewController -->
+        <scene sceneID="s2S-00-s02">
+            <objects>
+                <viewController id="s2V-00-v02" customClass="DDSettingsViewController" customModule="DoneDid" customModuleProvider="target" sceneMemberID="viewController" storyboardIdentifier="DDSettingsViewController">
+                    <navigationItem key="navigationItem" title="Settings" id="s2N-ni-001">
+                        <barButtonItem key="leftBarButtonItem" title="Done" style="done" id="s2B-dn-001">
+                            <connections>
+                                <action selector="done:" destination="s2V-00-v02" id="s2A-dn-001"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <view key="view" contentMode="scaleToFill" id="s2W-00-w02">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" translatesAutoresizingMaskIntoConstraints="NO" id="s2T-tv-001">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="s2V-00-v02" id="s2C-ds-001"/>
+                                    <outlet property="delegate" destination="s2V-00-v02" id="s2C-td-001"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="s2S-sa-g01"/>
+                        <constraints>
+                            <constraint firstItem="s2T-tv-001" firstAttribute="top" secondItem="s2S-sa-g01" secondAttribute="top" id="s2C-c001"/>
+                            <constraint firstItem="s2T-tv-001" firstAttribute="leading" secondItem="s2S-sa-g01" secondAttribute="leading" id="s2C-c002"/>
+                            <constraint firstItem="s2S-sa-g01" firstAttribute="trailing" secondItem="s2T-tv-001" secondAttribute="trailing" id="s2C-c003"/>
+                            <constraint firstItem="s2S-sa-g01" firstAttribute="bottom" secondItem="s2T-tv-001" secondAttribute="bottom" id="s2C-c004"/>
+                        </constraints>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="s2T-tv-001" id="s2C-o001"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s2R-fr-r02" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="640" y="0"/>
+        </scene>
+        <!-- SCENE 3 — DDWallPostCreateViewController -->
+        <scene sceneID="p3S-00-s03">
+            <objects>
+                <viewController id="p3V-00-v03" customClass="DDWallPostCreateViewController" customModule="DoneDid" customModuleProvider="target" sceneMemberID="viewController" storyboardIdentifier="DDWallPostCreateViewController">
+                    <navigationItem key="navigationItem" title="Post" id="p3N-ni-001">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="p3B-cn-001">
+                            <connections>
+                                <action selector="cancelPost:" destination="p3V-00-v03" id="p3A-cn-001"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Post" style="done" id="p3B-ps-001">
+                            <connections>
+                                <action selector="postPost:" destination="p3V-00-v03" id="p3A-ps-001"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <view key="view" contentMode="scaleToFill" id="p3W-00-w03">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p3T-tw-001">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="830"/>
+                                <fontDescription type="system" pointSize="14"/>
+                                <connections>
+                                    <outlet property="delegate" destination="p3V-00-v03" id="p3C-td-001"/>
+                                </connections>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="p3S-sa-g01"/>
+                        <constraints>
+                            <constraint firstItem="p3T-tw-001" firstAttribute="top" secondItem="p3S-sa-g01" secondAttribute="top" id="p3C-c001"/>
+                            <constraint firstItem="p3T-tw-001" firstAttribute="leading" secondItem="p3S-sa-g01" secondAttribute="leading" id="p3C-c002"/>
+                            <constraint firstItem="p3S-sa-g01" firstAttribute="trailing" secondItem="p3T-tw-001" secondAttribute="trailing" id="p3C-c003"/>
+                            <constraint firstItem="p3S-sa-g01" firstAttribute="bottom" secondItem="p3T-tw-001" secondAttribute="bottom" id="p3C-c007"/>
+                        </constraints>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="p3T-tw-001" id="p3C-o001"/>
+                        <outlet property="postButton" destination="p3B-ps-001" id="p3C-o003"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p3R-fr-r03" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1280" y="0"/>
+        </scene>
+        <!-- SCENE 4 — DDFavoriteOffersViewController -->
+        <scene sceneID="f4S-00-s04">
+            <objects>
+                <viewController id="f4V-00-v04" customClass="DDFavoriteOffersViewController" customModule="DoneDid" customModuleProvider="target" sceneMemberID="viewController" storyboardIdentifier="DDFavoriteOffersViewController">
+                    <view key="view" contentMode="scaleToFill" id="f4W-00-w04">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" translatesAutoresizingMaskIntoConstraints="NO" id="f4T-tv-001">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="f4V-00-v04" id="f4C-ds-001"/>
+                                    <outlet property="delegate" destination="f4V-00-v04" id="f4C-td-001"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="f4S-sa-g01"/>
+                        <constraints>
+                            <constraint firstItem="f4T-tv-001" firstAttribute="top" secondItem="f4S-sa-g01" secondAttribute="top" id="f4C-c001"/>
+                            <constraint firstItem="f4T-tv-001" firstAttribute="leading" secondItem="f4S-sa-g01" secondAttribute="leading" id="f4C-c002"/>
+                            <constraint firstItem="f4S-sa-g01" firstAttribute="trailing" secondItem="f4T-tv-001" secondAttribute="trailing" id="f4C-c003"/>
+                            <constraint firstItem="f4S-sa-g01" firstAttribute="bottom" secondItem="f4T-tv-001" secondAttribute="bottom" id="f4C-c004"/>
+                        </constraints>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="favoritesTableView" destination="f4T-tv-001" id="f4C-o001"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f4R-fr-r04" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1920" y="0"/>
+        </scene>
+        <!-- SCENE 5 — DDWalletViewController -->
+        <scene sceneID="w5S-00-s05">
+            <objects>
+                <viewController id="w5V-00-v05" customClass="DDWalletViewController" customModule="DoneDid" customModuleProvider="target" sceneMemberID="viewController" storyboardIdentifier="DDWalletViewController">
+                    <view key="view" contentMode="scaleToFill" id="w5W-00-w05">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" translatesAutoresizingMaskIntoConstraints="NO" id="w5T-tv-001">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="w5V-00-v05" id="w5C-ds-001"/>
+                                    <outlet property="delegate" destination="w5V-00-v05" id="w5C-td-001"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="w5S-sa-g01"/>
+                        <constraints>
+                            <constraint firstItem="w5T-tv-001" firstAttribute="top" secondItem="w5S-sa-g01" secondAttribute="top" id="w5C-c001"/>
+                            <constraint firstItem="w5T-tv-001" firstAttribute="leading" secondItem="w5S-sa-g01" secondAttribute="leading" id="w5C-c002"/>
+                            <constraint firstItem="w5S-sa-g01" firstAttribute="trailing" secondItem="w5T-tv-001" secondAttribute="trailing" id="w5C-c003"/>
+                            <constraint firstItem="w5S-sa-g01" firstAttribute="bottom" secondItem="w5T-tv-001" secondAttribute="bottom" id="w5C-c004"/>
+                        </constraints>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="walletTableView" destination="w5T-tv-001" id="w5C-o001"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w5R-fr-r05" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2560" y="0"/>
+        </scene>
+        <!-- SCENE 6 — DDOfferDetailViewController -->
+        <scene sceneID="o6S-00-s06">
+            <objects>
+                <viewController id="o6V-00-v06" customClass="DDOfferDetailViewController" customModule="DoneDid" customModuleProvider="target" sceneMemberID="viewController" storyboardIdentifier="DDOfferDetailViewController">
+                    <view key="view" contentMode="scaleToFill" id="o6W-00-w06">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o6V-is-001">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="160"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="160" id="o6C-ih-001"/>
+                                </constraints>
+                            </scrollView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o6L-nm-001">
+                                <rect key="frame" x="16" y="176" width="361" height="21"/>
+                                <fontDescription type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="0" green="0" blue="0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" numberOfLines="0" translatesAutoresizingMaskIntoConstraints="NO" id="o6L-dt-001">
+                                <rect key="frame" x="16" y="201" width="361" height="20"/>
+                                <fontDescription type="system" pointSize="15"/>
+                                <color key="textColor" red="0" green="0" blue="0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o6V-ts-001">
+                                <rect key="frame" x="0.0" y="229" width="393" height="100"/>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o6B-fv-001">
+                                <rect key="frame" x="16" y="345" width="80" height="30"/>
+                                <state key="normal" title="Fave"/>
+                                <connections>
+                                    <action selector="favoritePressed:" destination="o6V-00-v06" eventType="touchUpInside" id="o6A-fv-001"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o6B-ob-001">
+                                <rect key="frame" x="140" y="383" width="113" height="30"/>
+                                <state key="normal" title="Get Offer"/>
+                                <connections>
+                                    <action selector="offerButtonPressed:" destination="o6V-00-v06" eventType="touchUpInside" id="o6A-ob-001"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="o6S-sa-g01"/>
+                        <constraints>
+                            <constraint firstItem="o6V-is-001" firstAttribute="top" secondItem="o6S-sa-g01" secondAttribute="top" id="o6C-c001"/>
+                            <constraint firstItem="o6V-is-001" firstAttribute="leading" secondItem="o6S-sa-g01" secondAttribute="leading" id="o6C-c002"/>
+                            <constraint firstItem="o6S-sa-g01" firstAttribute="trailing" secondItem="o6V-is-001" secondAttribute="trailing" id="o6C-c003"/>
+                            <constraint firstItem="o6L-nm-001" firstAttribute="top" secondItem="o6V-is-001" secondAttribute="bottom" constant="8" id="o6C-c004"/>
+                            <constraint firstItem="o6L-nm-001" firstAttribute="leading" secondItem="o6S-sa-g01" secondAttribute="leading" constant="16" id="o6C-c005"/>
+                            <constraint firstItem="o6S-sa-g01" firstAttribute="trailing" secondItem="o6L-nm-001" secondAttribute="trailing" constant="16" id="o6C-c006"/>
+                            <constraint firstItem="o6L-dt-001" firstAttribute="top" secondItem="o6L-nm-001" secondAttribute="bottom" constant="4" id="o6C-c007"/>
+                            <constraint firstItem="o6L-dt-001" firstAttribute="leading" secondItem="o6S-sa-g01" secondAttribute="leading" constant="16" id="o6C-c008"/>
+                            <constraint firstItem="o6S-sa-g01" firstAttribute="trailing" secondItem="o6L-dt-001" secondAttribute="trailing" constant="16" id="o6C-c009"/>
+                            <constraint firstItem="o6V-ts-001" firstAttribute="top" secondItem="o6L-dt-001" secondAttribute="bottom" constant="8" id="o6C-c010"/>
+                            <constraint firstItem="o6V-ts-001" firstAttribute="leading" secondItem="o6S-sa-g01" secondAttribute="leading" id="o6C-c011"/>
+                            <constraint firstItem="o6S-sa-g01" firstAttribute="trailing" secondItem="o6V-ts-001" secondAttribute="trailing" id="o6C-c012"/>
+                            <constraint firstItem="o6B-fv-001" firstAttribute="top" secondItem="o6V-ts-001" secondAttribute="bottom" constant="8" id="o6C-c013"/>
+                            <constraint firstItem="o6B-fv-001" firstAttribute="leading" secondItem="o6S-sa-g01" secondAttribute="leading" constant="16" id="o6C-c014"/>
+                            <constraint firstItem="o6B-ob-001" firstAttribute="top" secondItem="o6B-fv-001" secondAttribute="bottom" constant="8" id="o6C-c015"/>
+                            <constraint firstItem="o6B-ob-001" firstAttribute="centerX" secondItem="o6W-00-w06" secondAttribute="centerX" id="o6C-c016"/>
+                            <constraint firstItem="o6S-sa-g01" firstAttribute="bottom" secondItem="o6B-ob-001" secondAttribute="bottom" constant="16" id="o6C-c017"/>
+                        </constraints>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="imagesScrollView" destination="o6V-is-001" id="o6C-o001"/>
+                        <outlet property="textScrollView" destination="o6V-ts-001" id="o6C-o002"/>
+                        <outlet property="offerButton" destination="o6B-ob-001" id="o6C-o003"/>
+                        <outlet property="offerNameLabel" destination="o6L-nm-001" id="o6C-o004"/>
+                        <outlet property="offerDetailsLabel" destination="o6L-dt-001" id="o6C-o005"/>
+                        <outlet property="favoriteButton" destination="o6B-fv-001" id="o6C-o006"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="o6R-fr-r06" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3200" y="0"/>
+        </scene>
+        <!-- SCENE 7 — DDQRCodeViewController -->
+        <scene sceneID="q7S-00-s07">
+            <objects>
+                <viewController id="q7V-00-v07" customClass="DDQRCodeViewController" customModule="DoneDid" customModuleProvider="target" sceneMemberID="viewController" storyboardIdentifier="DDQRCodeViewController">
+                    <view key="view" contentMode="scaleToFill" id="q7W-00-w07">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="q7I-iv-001">
+                                <rect key="frame" x="96.5" y="326" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="q7C-iw-001"/>
+                                    <constraint firstAttribute="height" constant="200" id="q7C-ih-001"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q7B-sb-001">
+                                <rect key="frame" x="90" y="800" width="213" height="30"/>
+                                <state key="normal" title="Merchant cant scan?"/>
+                                <connections>
+                                    <action selector="scanPressed:" destination="q7V-00-v07" eventType="touchUpInside" id="q7A-sb-001"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="q7S-sa-g01"/>
+                        <constraints>
+                            <constraint firstItem="q7I-iv-001" firstAttribute="centerX" secondItem="q7W-00-w07" secondAttribute="centerX" id="q7C-c001"/>
+                            <constraint firstItem="q7I-iv-001" firstAttribute="centerY" secondItem="q7W-00-w07" secondAttribute="centerY" id="q7C-c002"/>
+                            <constraint firstItem="q7B-sb-001" firstAttribute="centerX" secondItem="q7W-00-w07" secondAttribute="centerX" id="q7C-c003"/>
+                            <constraint firstItem="q7S-sa-g01" firstAttribute="bottom" secondItem="q7B-sb-001" secondAttribute="bottom" constant="20" id="q7C-c004"/>
+                        </constraints>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="qrCodeImageView" destination="q7I-iv-001" id="q7C-o001"/>
+                        <outlet property="scanButton" destination="q7B-sb-001" id="q7C-o002"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q7R-fr-r07" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3840" y="0"/>
+        </scene>
+        <!-- SCENE 8 — DDScanBarcodeViewController (empty, camera added programmatically) -->
+        <scene sceneID="b8S-00-s08">
+            <objects>
+                <viewController id="b8V-00-v08" customClass="DDScanBarcodeViewController" customModule="DoneDid" customModuleProvider="target" sceneMemberID="viewController" storyboardIdentifier="DDScanBarcodeViewController">
+                    <view key="view" contentMode="scaleToFill" id="b8W-00-w08">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="b8S-sa-g01"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b8R-fr-r08" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4480" y="0"/>
+        </scene>
+        <!-- SCENE 9 — DDPictureMissionViewController -->
+        <scene sceneID="m9S-00-s09">
+            <objects>
+                <viewController id="m9V-00-v09" customClass="DDPictureMissionViewController" customModule="DoneDid" customModuleProvider="target" sceneMemberID="viewController" storyboardIdentifier="DDPictureMissionViewController">
+                    <view key="view" contentMode="scaleToFill" id="m9W-00-w09">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="m9I-pi-001">
+                                <rect key="frame" x="106.5" y="16" width="180" height="180"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="m9C-pw-001"/>
+                                    <constraint firstAttribute="height" constant="180" id="m9C-ph-001"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9B-pb-001">
+                                <rect key="frame" x="106.5" y="16" width="180" height="180"/>
+                                <state key="normal" title=""/>
+                                <connections>
+                                    <action selector="pictureButtonPressed:" destination="m9V-00-v09" eventType="touchUpInside" id="m9A-pb-001"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to choose photo" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="m9L-cp-001">
+                                <rect key="frame" x="106.5" y="16" width="180" height="180"/>
+                                <color key="textColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.26274509803921569" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="custom" enabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9B-tb-001">
+                                <rect key="frame" x="16" y="212" width="361" height="44"/>
+                                <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="m9C-th-001"/>
+                                </constraints>
+                                <state key="normal" title=""/>
+                            </button>
+                            <textField clipsSubviews="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Title" borderStyle="none" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="m9T-tf-001">
+                                <rect key="frame" x="24" y="220" width="345" height="28"/>
+                                <fontDescription type="system" pointSize="14"/>
+                                <connections>
+                                    <outlet property="delegate" destination="m9V-00-v09" id="m9C-tfd-001"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="custom" enabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9B-cb-001">
+                                <rect key="frame" x="16" y="264" width="361" height="120"/>
+                                <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="m9C-ch-001"/>
+                                </constraints>
+                                <state key="normal" title=""/>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m9T-cv-001">
+                                <rect key="frame" x="24" y="272" width="345" height="104"/>
+                                <fontDescription type="system" pointSize="14"/>
+                                <connections>
+                                    <outlet property="delegate" destination="m9V-00-v09" id="m9C-tvd-001"/>
+                                </connections>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Comment" translatesAutoresizingMaskIntoConstraints="NO" id="m9L-cl-001">
+                                <rect key="frame" x="28" y="276" width="80" height="18"/>
+                                <color key="textColor" red="0.23529411764705882" green="0.23529411764705882" blue="0.26274509803921569" alpha="0.29999999999999999" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField clipsSubviews="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="m9T-ct-001">
+                                <rect key="frame" x="16" y="392" width="361" height="34"/>
+                            </textField>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" hidden="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m9T-rv-001">
+                                <rect key="frame" x="16" y="434" width="361" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="m9C-rh-001"/>
+                                </constraints>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="m9S-sa-g01"/>
+                        <constraints>
+                            <constraint firstItem="m9I-pi-001" firstAttribute="top" secondItem="m9S-sa-g01" secondAttribute="top" constant="16" id="m9C-c001"/>
+                            <constraint firstItem="m9I-pi-001" firstAttribute="centerX" secondItem="m9W-00-w09" secondAttribute="centerX" id="m9C-c002"/>
+                            <constraint firstItem="m9B-pb-001" firstAttribute="top" secondItem="m9I-pi-001" secondAttribute="top" id="m9C-c003"/>
+                            <constraint firstItem="m9B-pb-001" firstAttribute="leading" secondItem="m9I-pi-001" secondAttribute="leading" id="m9C-c004"/>
+                            <constraint firstItem="m9I-pi-001" firstAttribute="trailing" secondItem="m9B-pb-001" secondAttribute="trailing" id="m9C-c005"/>
+                            <constraint firstItem="m9I-pi-001" firstAttribute="bottom" secondItem="m9B-pb-001" secondAttribute="bottom" id="m9C-c006"/>
+                            <constraint firstItem="m9L-cp-001" firstAttribute="centerX" secondItem="m9I-pi-001" secondAttribute="centerX" id="m9C-c007"/>
+                            <constraint firstItem="m9L-cp-001" firstAttribute="centerY" secondItem="m9I-pi-001" secondAttribute="centerY" id="m9C-c008"/>
+                            <constraint firstItem="m9B-tb-001" firstAttribute="top" secondItem="m9I-pi-001" secondAttribute="bottom" constant="16" id="m9C-c009"/>
+                            <constraint firstItem="m9B-tb-001" firstAttribute="leading" secondItem="m9S-sa-g01" secondAttribute="leading" constant="16" id="m9C-c010"/>
+                            <constraint firstItem="m9S-sa-g01" firstAttribute="trailing" secondItem="m9B-tb-001" secondAttribute="trailing" constant="16" id="m9C-c011"/>
+                            <constraint firstItem="m9T-tf-001" firstAttribute="top" secondItem="m9B-tb-001" secondAttribute="top" constant="8" id="m9C-c012"/>
+                            <constraint firstItem="m9T-tf-001" firstAttribute="leading" secondItem="m9B-tb-001" secondAttribute="leading" constant="8" id="m9C-c013"/>
+                            <constraint firstItem="m9B-tb-001" firstAttribute="trailing" secondItem="m9T-tf-001" secondAttribute="trailing" constant="8" id="m9C-c014"/>
+                            <constraint firstItem="m9B-tb-001" firstAttribute="bottom" secondItem="m9T-tf-001" secondAttribute="bottom" constant="8" id="m9C-c015"/>
+                            <constraint firstItem="m9B-cb-001" firstAttribute="top" secondItem="m9B-tb-001" secondAttribute="bottom" constant="8" id="m9C-c016"/>
+                            <constraint firstItem="m9B-cb-001" firstAttribute="leading" secondItem="m9S-sa-g01" secondAttribute="leading" constant="16" id="m9C-c017"/>
+                            <constraint firstItem="m9S-sa-g01" firstAttribute="trailing" secondItem="m9B-cb-001" secondAttribute="trailing" constant="16" id="m9C-c018"/>
+                            <constraint firstItem="m9T-cv-001" firstAttribute="top" secondItem="m9B-cb-001" secondAttribute="top" constant="8" id="m9C-c019"/>
+                            <constraint firstItem="m9T-cv-001" firstAttribute="leading" secondItem="m9B-cb-001" secondAttribute="leading" constant="8" id="m9C-c020"/>
+                            <constraint firstItem="m9B-cb-001" firstAttribute="trailing" secondItem="m9T-cv-001" secondAttribute="trailing" constant="8" id="m9C-c021"/>
+                            <constraint firstItem="m9B-cb-001" firstAttribute="bottom" secondItem="m9T-cv-001" secondAttribute="bottom" constant="8" id="m9C-c022"/>
+                            <constraint firstItem="m9L-cl-001" firstAttribute="top" secondItem="m9T-cv-001" secondAttribute="top" constant="4" id="m9C-c023"/>
+                            <constraint firstItem="m9L-cl-001" firstAttribute="leading" secondItem="m9T-cv-001" secondAttribute="leading" constant="4" id="m9C-c024"/>
+                            <constraint firstItem="m9T-ct-001" firstAttribute="top" secondItem="m9B-cb-001" secondAttribute="bottom" constant="8" id="m9C-c025"/>
+                            <constraint firstItem="m9T-ct-001" firstAttribute="leading" secondItem="m9S-sa-g01" secondAttribute="leading" constant="16" id="m9C-c026"/>
+                            <constraint firstItem="m9S-sa-g01" firstAttribute="trailing" secondItem="m9T-ct-001" secondAttribute="trailing" constant="16" id="m9C-c027"/>
+                            <constraint firstItem="m9T-rv-001" firstAttribute="top" secondItem="m9T-ct-001" secondAttribute="bottom" constant="8" id="m9C-c028"/>
+                            <constraint firstItem="m9T-rv-001" firstAttribute="leading" secondItem="m9S-sa-g01" secondAttribute="leading" constant="16" id="m9C-c029"/>
+                            <constraint firstItem="m9S-sa-g01" firstAttribute="trailing" secondItem="m9T-rv-001" secondAttribute="trailing" constant="16" id="m9C-c030"/>
+                        </constraints>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <connections>
+                        <outlet property="pictureButton" destination="m9B-pb-001" id="m9C-o001"/>
+                        <outlet property="titleTextField" destination="m9T-tf-001" id="m9C-o002"/>
+                        <outlet property="commentTextField" destination="m9T-ct-001" id="m9C-o003"/>
+                        <outlet property="commentTextView" destination="m9T-cv-001" id="m9C-o004"/>
+                        <outlet property="pictureImageView" destination="m9I-pi-001" id="m9C-o005"/>
+                        <outlet property="commentBackgroundButton" destination="m9B-cb-001" id="m9C-o006"/>
+                        <outlet property="titleBackgroundButton" destination="m9B-tb-001" id="m9C-o007"/>
+                        <outlet property="commentLabel" destination="m9L-cl-001" id="m9C-o008"/>
+                        <outlet property="requirementsTextView" destination="m9T-rv-001" id="m9C-o009"/>
+                        <outlet property="choosePhotoLabel" destination="m9L-cp-001" id="m9C-o010"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m9R-fr-r09" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5120" y="0"/>
+        </scene>
+    </scenes>
+    <resources>
+    </resources>
+</document>

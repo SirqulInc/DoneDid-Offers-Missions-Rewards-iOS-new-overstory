@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <scene sceneID="a1S-gK-s01">
+            <objects>
+                <viewController id="a1V-bR-v01" customClass="DDWelcomeViewController" customModule="DoneDid" customModuleProvider="target" sceneMemberID="viewController" storyboardIdentifier="DDWelcomeViewController">
+                    <view key="view" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="a1W-cT-w01">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" image="Default" id="a1I-bg-iv1">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a1B-dH-b01">
+                                <rect key="frame" x="96.5" y="548" width="200" height="44"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Log in" backgroundImage="Button">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" red="0" green="0" blue="0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="loginButtonSelected:" destination="a1V-bR-v01" eventType="touchUpInside" id="a1A-eJ-a01"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a1B-fN-b02">
+                                <rect key="frame" x="96.5" y="608" width="200" height="44"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <state key="normal" title="Sign up" backgroundImage="Button">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" red="0" green="0" blue="0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="createButtonSelected:" destination="a1V-bR-v01" eventType="touchUpInside" id="a1A-gP-a02"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a1B-hR-b03">
+                                <rect key="frame" x="166.5" y="796" width="60" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Sirqul">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="gotoSirqul:" destination="a1V-bR-v01" eventType="touchUpInside" id="a1A-iT-a03"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="a1G-jV-g01"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="a1B-dH-b01" firstAttribute="centerX" secondItem="a1G-jV-g01" secondAttribute="centerX" id="a1C-kX-c01"/>
+                            <constraint firstItem="a1B-dH-b01" firstAttribute="width" constant="200" id="a1C-lZ-c02"/>
+                            <constraint firstItem="a1B-dH-b01" firstAttribute="height" constant="44" id="a1C-m2-c03"/>
+                            <constraint firstItem="a1B-dH-b01" firstAttribute="bottom" secondItem="a1G-jV-g01" secondAttribute="bottom" multiplier="0.7" id="a1C-n4-c04"/>
+                            <constraint firstItem="a1B-fN-b02" firstAttribute="centerX" secondItem="a1G-jV-g01" secondAttribute="centerX" id="a1C-o6-c05"/>
+                            <constraint firstItem="a1B-fN-b02" firstAttribute="width" constant="200" id="a1C-p8-c06"/>
+                            <constraint firstItem="a1B-fN-b02" firstAttribute="height" constant="44" id="a1C-qA-c07"/>
+                            <constraint firstItem="a1B-fN-b02" firstAttribute="top" secondItem="a1B-dH-b01" secondAttribute="bottom" constant="16" id="a1C-rC-c08"/>
+                            <constraint firstItem="a1B-hR-b03" firstAttribute="centerX" secondItem="a1G-jV-g01" secondAttribute="centerX" id="a1C-sE-c09"/>
+                            <constraint firstItem="a1B-hR-b03" firstAttribute="width" constant="60" id="a1C-tG-c10"/>
+                            <constraint firstItem="a1B-hR-b03" firstAttribute="height" constant="30" id="a1C-uI-c11"/>
+                            <constraint firstItem="a1G-jV-g01" firstAttribute="bottom" secondItem="a1B-hR-b03" secondAttribute="bottom" constant="22" id="a1C-vK-c12"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a1F-wM-f01" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="20" y="130"/>
+        </scene>
+        <scene sceneID="a2S-aB-s01">
+            <objects>
+                <viewController id="a2V-cD-v01" customClass="DDLoginViewController" customModule="DoneDid" customModuleProvider="target" sceneMemberID="viewController" storyboardIdentifier="DDLoginViewController">
+                    <navigationItem key="navigationItem" title="Log In" id="a2N-ni-002">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="a2B-cn-002">
+                            <connections>
+                                <action selector="cancel:" destination="a2V-cD-v01" id="a2A-iJ-a01"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="a2B-dn-002">
+                            <connections>
+                                <action selector="done:" destination="a2V-cD-v01" id="a2A-mN-a02"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="doneButton" destination="a2B-dn-002" id="a2O-oP-o01"/>
+                        <outlet property="usernameField" destination="a2T-qR-t01" id="a2O-sT-o02"/>
+                        <outlet property="passwordField" destination="a2T-uV-t02" id="a2O-wX-o03"/>
+                    </connections>
+                    <view key="view" contentMode="scaleToFill" id="a2W-yZ-w01">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="just_background" id="a2I-bg-iv1">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="a2T-qR-t01">
+                                <rect key="frame" x="32" y="179" width="329" height="34"/>
+                                <fontDescription key="fontDescription" name="Helvetica" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="a2V-cD-v01" id="a2D-a1-d01"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="a2T-uV-t02">
+                                <rect key="frame" x="32" y="229" width="329" height="34"/>
+                                <fontDescription key="fontDescription" name="Helvetica" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="a2V-cD-v01" id="a2D-c3-d02"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="a2G-e5-g01"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="a2T-qR-t01" firstAttribute="leading" secondItem="a2G-e5-g01" secondAttribute="leading" constant="32" id="a2C-g7-c01"/>
+                            <constraint firstItem="a2G-e5-g01" firstAttribute="trailing" secondItem="a2T-qR-t01" secondAttribute="trailing" constant="32" id="a2C-i9-c02"/>
+                            <constraint firstItem="a2T-qR-t01" firstAttribute="top" secondItem="a2G-e5-g01" secondAttribute="top" constant="120" id="a2C-kB-c03"/>
+                            <constraint firstItem="a2T-uV-t02" firstAttribute="leading" secondItem="a2G-e5-g01" secondAttribute="leading" constant="32" id="a2C-mD-c04"/>
+                            <constraint firstItem="a2G-e5-g01" firstAttribute="trailing" secondItem="a2T-uV-t02" secondAttribute="trailing" constant="32" id="a2C-oF-c05"/>
+                            <constraint firstItem="a2T-uV-t02" firstAttribute="top" secondItem="a2T-qR-t01" secondAttribute="bottom" constant="16" id="a2C-qH-c06"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a2F-sJ-f01" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="400" y="130"/>
+        </scene>
+        <scene sceneID="a3S-aL-s01">
+            <objects>
+                <viewController id="a3V-cN-v01" customClass="DDNewUserViewController" customModule="DoneDid" customModuleProvider="target" sceneMemberID="viewController" storyboardIdentifier="DDNewUserViewController">
+                    <navigationItem key="navigationItem" title="Create an Account" id="a3N-ni-002">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="a3B-cn-002">
+                            <connections>
+                                <action selector="cancel:" destination="a3V-cN-v01" id="a3A-iT-a01"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="a3B-dn-002">
+                            <connections>
+                                <action selector="done:" destination="a3V-cN-v01" id="a3A-mX-a02"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="doneButton" destination="a3B-dn-002" id="a3O-oZ-o01"/>
+                        <outlet property="usernameField" destination="a3T-q2-t01" id="a3O-s4-o02"/>
+                        <outlet property="passwordField" destination="a3T-u6-t02" id="a3O-w8-o03"/>
+                        <outlet property="passwordAgainField" destination="a3T-yA-t03" id="a3O-aC-o04"/>
+                    </connections>
+                    <view key="view" contentMode="scaleToFill" id="a3W-cE-w01">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="just_background" id="a3I-bg-iv1">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="a3T-q2-t01">
+                                <rect key="frame" x="32" y="179" width="329" height="34"/>
+                                <fontDescription key="fontDescription" name="Helvetica" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="a3V-cN-v01" id="a3D-eG-d01"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="a3T-u6-t02">
+                                <rect key="frame" x="32" y="229" width="329" height="34"/>
+                                <fontDescription key="fontDescription" name="Helvetica" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="next" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="a3V-cN-v01" id="a3D-gI-d02"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password Again" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="a3T-yA-t03">
+                                <rect key="frame" x="32" y="279" width="329" height="34"/>
+                                <fontDescription key="fontDescription" name="Helvetica" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="go" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="a3V-cN-v01" id="a3D-iK-d03"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="a3G-kM-g01"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="a3T-q2-t01" firstAttribute="leading" secondItem="a3G-kM-g01" secondAttribute="leading" constant="32" id="a3C-mO-c01"/>
+                            <constraint firstItem="a3G-kM-g01" firstAttribute="trailing" secondItem="a3T-q2-t01" secondAttribute="trailing" constant="32" id="a3C-oQ-c02"/>
+                            <constraint firstItem="a3T-q2-t01" firstAttribute="top" secondItem="a3G-kM-g01" secondAttribute="top" constant="120" id="a3C-qS-c03"/>
+                            <constraint firstItem="a3T-u6-t02" firstAttribute="leading" secondItem="a3G-kM-g01" secondAttribute="leading" constant="32" id="a3C-sU-c04"/>
+                            <constraint firstItem="a3G-kM-g01" firstAttribute="trailing" secondItem="a3T-u6-t02" secondAttribute="trailing" constant="32" id="a3C-uW-c05"/>
+                            <constraint firstItem="a3T-u6-t02" firstAttribute="top" secondItem="a3T-q2-t01" secondAttribute="bottom" constant="16" id="a3C-wY-c06"/>
+                            <constraint firstItem="a3T-yA-t03" firstAttribute="leading" secondItem="a3G-kM-g01" secondAttribute="leading" constant="32" id="a3C-y1-c07"/>
+                            <constraint firstItem="a3G-kM-g01" firstAttribute="trailing" secondItem="a3T-yA-t03" secondAttribute="trailing" constant="32" id="a3C-a3-c08"/>
+                            <constraint firstItem="a3T-yA-t03" firstAttribute="top" secondItem="a3T-u6-t02" secondAttribute="bottom" constant="16" id="a3C-c5-c09"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a3F-e7-f01" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="780" y="130"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Button" width="197" height="45"/>
+        <image name="Default" width="640" height="1136"/>
+        <image name="just_background" width="320" height="460"/>
+    </resources>
+</document>

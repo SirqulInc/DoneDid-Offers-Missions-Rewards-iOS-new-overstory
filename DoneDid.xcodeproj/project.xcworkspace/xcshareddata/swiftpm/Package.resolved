@@ -1,0 +1,33 @@
+{
+  "originHash" : "826bc9a09060d07a1a1e475b6d7535a4df7ac48fce6688f99a4a6d3eca4e0458",
+  "pins" : [
+    {
+      "identity" : "apptemplatecodecomponents.sirqulbase",
+      "kind" : "remoteSourceControl",
+      "location" : "https://git.assembla.com/SirqulPortfolio/apptemplatecodecomponents.SirqulBase",
+      "state" : {
+        "revision" : "50c505f2cb9718f264e5fa71ff474e3178f90213",
+        "version" : "1.0.9"
+      }
+    },
+    {
+      "identity" : "apptemplatecodecomponents.sirqulsdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://git.assembla.com/SirqulPortfolio/apptemplatecodecomponents.sirqulsdk",
+      "state" : {
+        "revision" : "3d2004e05f7402a3c9d6f057551eaf4c395a161e",
+        "version" : "2.1.6"
+      }
+    },
+    {
+      "identity" : "apptemplatecodecomponents.sniwrapper",
+      "kind" : "remoteSourceControl",
+      "location" : "https://git.assembla.com/SirqulPortfolio/apptemplatecodecomponents.sniwrapper.git",
+      "state" : {
+        "revision" : "d66b7fc4c95f35968ebb9a2a856fe2fb706cc67d",
+        "version" : "6.3.8"
+      }
+    }
+  ],
+  "version" : 3
+}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>31EA4F87-A52B-467B-A8F9-84890B0BDA94</string>
+	<key>IDESourceControlProjectName</key>
+	<string>DoneDid</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>74159667-f7c7-4e28-9fd8-bff416e86a9d++5431</key>
+		<string>https://subversion.assembla.com/svn/sirqul/trunk/ios</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Tutorials/DoneDidWithOffers/DoneDid.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>74159667-f7c7-4e28-9fd8-bff416e86a9d++5431</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>74159667-f7c7-4e28-9fd8-bff416e86a9d++5431</key>
+		<string>https://subversion.assembla.com/svn/sirqul</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://subversion.assembla.com/svn/sirqul/trunk/ios/Tutorials/DoneDidWithOffers/DoneDid.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>74159667-f7c7-4e28-9fd8-bff416e86a9d++5431</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>74159667-f7c7-4e28-9fd8-bff416e86a9d++5431</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ios</string>
+		</dict>
+	</array>
+</dict>
+</plist>

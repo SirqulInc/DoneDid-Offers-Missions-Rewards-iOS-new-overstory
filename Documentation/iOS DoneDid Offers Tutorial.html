@@ -1,0 +1,274 @@
+<h1>iOS DoneDid Offers, Missions, Rewards, and Wallet Tutorial</h1>
+<br><h2>Introduction</h2></br>
+<p>To help give an example of using Sirqul's offers, missions, rewards, and wallet, we will add functionality to the DoneDid project.  The new functionality will search for the top 50 offers around the user.  The user will be able to view these offers and add them to their wallet.  If the offer has a mission and reward attached to it, the user will be able to complete the mission to get the reward in their wallet.  For this example, the mission will be a photo mission, where the user is required to upload a photo and give it a title and comment.  There are 11 parts to this tutorial:</p>
+<ol>
+	<li>Getting a list of offers</li>
+	<li>Viewing details of an offer</li>
+	<li>Adding and removing a favorite offer</li>
+	<li>Viewing favorite offers</li>
+	<li>Adding an offer to the wallet</li>
+	<li>Viewing the wallet</li>
+	<li>Viewing details of an offer from the wallet</li>
+	<li>Setting the redemptionStatus of an offer from the wallet</li>
+	<li>Redeeming an offer</li>
+	<li>Starting a mission</li>
+	<li>Completing a mission</li>
+</ol>
+
+<p><h2>Part 1: Getting a list of offers.</h2></p>
+<p>Getting a list of offers around a location is simple, you can see what we do in the <i>loadOffers</i> method inside of the <i>DDWallViewController</i> class.  We're searching for the top 50 offers within 50 miles of the user.</p>
+<code>
+	<pre>
+	DDAppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
+	
+	SirqulNetworkInterface *interface = [[SirqulNetworkInterface alloc]initWithDelegate:self andAppKey:sirqulAppKey andPrivateKey:sirqulPrivateKey];
+	[interface setStatus:kSirqulStatusGetOffersList];
+	[interface getOffersListWithAccountId:[[NSUserDefaults standardUserDefaults]objectForKey:@"accountId"] andLocation:appDelegate.currentLocation andSearchRange:[NSNumber numberWithInteger:50] andKeyword:nil andCategoryIds:nil andFilters:nil andType:kSpecialOfferTypeNULL andOfferTypes:nil andSortField:kSortFilterNULL andLocationId:nil andIncludeMission:[NSNumber numberWithBool:YES] andStart:[NSNumber numberWithInteger:0] andLimit:[NSNumber numberWithInteger:50]];
+	</pre>
+</code>
+<p>Be sure to grab the results from the <i>networkRequestDidSucceed:withInterface:</i> callback method.  From there its just a matter of displaying the results in a table or placing pins on the map.<p>
+
+<p><h2>Part 2: Viewing details of an offer.</h2></p>
+<p>If a user clicks on an offer in the table, it will bring them to a detailed view of that offer with the <i>DDOfferDetailViewController</i> class.  Details are retrieved in <i>viewDidLoad</i> like so:</p>
+<code>
+	<pre>
+	SirqulNetworkInterface *interface = [[SirqulNetworkInterface alloc]initWithDelegate:self andAppKey:sirqulAppKey andPrivateKey:sirqulPrivateKey];
+	if (cameFromWallet) {
+		[interface setStatus:kSirqulStatusGetOffer];
+		[interface getOfferTransactionWithAccountId:[[NSUserDefaults standardUserDefaults]objectForKey:@"accountId"] andTransactionId:[NSNumber numberWithInteger:transactionId] andIncludeMission:nil andLocation:nil];
+	}else{
+		[interface setStatus:kSirqulStatusGetOffer];
+		[interface getOfferDetailsWithAccountId:[[NSUserDefaults standardUserDefaults]objectForKey:@"accountId"] andOfferId:nil andOfferLocationId:[NSNumber numberWithInteger:offerLocationId] andDistance:nil andLocation:nil];
+	}
+	</pre>
+</code>
+<p>Note that since we arrived at this view from the <i>DDWallViewController</i> and not the <i>DDWalletViewController</i>, the <i>cameFromWallet</i> boolean is false and only the code under the else statement will be run.  If the user were to tap an offer in their wallet to see its details, the first part of the code would be run instead.  Results will be returned in the <i>networkRequestDidSucceed:withInterface:</i> delegate method.</p>
+
+<p><h2>Part 3: Adding and removing a favorite offer.</h2></p>
+<p>Adding an offer as a favorite is simple, and an example can be seen in <i>DDOfferDetailViewController</i>.  In the <i>favoritePressed:</i> method, depending on the <i>selected</i> state of the <i>_favoriteButton</i>, the method will either add or remove a favorite offer.  Note that the <i>favoritableType</i> that we pass in is "OFFER_LOCATION", since the user will be favoriting the offer at a specific location.</p>
+<code>
+	<pre>
+	SirqulNetworkInterface *interface = [[SirqulNetworkInterface alloc]initWithDelegate:self andAppKey:sirqulAppKey andPrivateKey:sirqulPrivateKey];
+	if (_favoriteButton.selected) {
+        [interface setStatus:kSirqulStatusRemoveFavorite];
+        [interface removeFavoriteWithAccountId:[[NSUserDefaults standardUserDefaults]objectForKey:@"accountId"] andFavoriteId:nil andFavoritableId:[NSNumber numberWithInteger:[[offer objectForKey:@"offerLocationId"]integerValue]] andFavoritableType:@"OFFER_LOCATION"];
+		[_favoriteButton setSelected:NO];
+	}else{
+		[interface setStatus:kSirqulStatusAddFavorite];
+		[interface addFavoriteWithAccountId:[[NSUserDefaults standardUserDefaults]objectForKey:@"accountId"] andFavoritableId:[NSNumber numberWithInteger:[[offer objectForKey:@"offerLocationId"]integerValue]] andFavoritableType:@"OFFER_LOCATION" andLocation:nil];
+		[_favoriteButton setSelected:YES];
+	}
+	</pre>
+</code>
+
+<p><h2>Part 4: Viewing favorite offers.</h2></p>
+<p>Viewing favorite offers is just as easy as adding them.  Right in the <i>viewDidLoad</i> method, we grab the first 50 favorite offers the user has with the <i>getFavoritesWithAccountId:andConnectionAccountId:andFavoritableType:andKeyword:andSortField:andDescending:andStart:andLimit:andActiveOnly:andLocation:</i> method.</p>
+<code>
+	<pre>
+	SirqulNetworkInterface *interface = [[SirqulNetworkInterface alloc]initWithDelegate:self andAppKey:sirqulAppKey andPrivateKey:sirqulPrivateKey];
+	[interface setStatus:kSirqulStatusGetFavorites];
+	[interface getFavoritesWithAccountId:[[NSUserDefaults standardUserDefaults]objectForKey:@"accountId"] andConnectionAccountId:nil andFavoritableType:@"OFFER_LOCATION" andKeyword:nil andSortField:nil andDescending:nil andStart:[NSNumber numberWithInteger:0] andLimit:[NSNumber numberWithInteger:50] andActiveOnly:nil andLocation:nil];
+	</pre>
+</code>
+<p>Then simple grab the results in the callback method <i>networkRequestDidSucceed:withInterface:</i> and display them in a table from there.</p>
+
+<p><h2>Part 5: Adding an offer to the wallet.</h2></p>
+<p>To add an offer to the wallet, we must first check to make sure there are still offers available to add.  If so, we send off the API call and the offer will be in the user's wallet.  This is done in the <i>offerButtonPressed:</i> method in <i>DDOfferDetailViewController</i>.</p>
+<code>
+	<pre>
+	NSInteger remaining = 0;
+	if ([SNIHelper checkDictionary:offer objectForKey:@"redemptionsRemaining"]) {
+		remaining = [[offer objectForKey:@"redemptionsRemaining"]integerValue];
+	}
+	if (remaining > 0) {
+		SirqulNetworkInterface *interface = [[SirqulNetworkInterface alloc]initWithDelegate:self andAppKey:sirqulAppKey andPrivateKey:sirqulPrivateKey];
+		[interface setStatus:kSirqulStatusAddWallet];
+		[interface addWalletWithAccountId:[[NSUserDefaults standardUserDefaults]objectForKey:@"accountId"] andOfferId:nil andOfferLocationId:[NSNumber numberWithInteger:offerLocationId] andUsePoints:nil];
+	}else{
+		[[[UIAlertView alloc]initWithTitle:nil message:@"There are no more coupons to redeem." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+	}
+	</pre>
+</code>
+
+<p><h2>Part 6: Viewing the wallet</h2></p>
+<p>Viewing the wallet is another simple task with Sirqul, we simply make a call like this in <i>viewDidLoad</i>:</p>
+<code>
+	<pre>
+	SirqulNetworkInterface *interface = [[SirqulNetworkInterface alloc]initWithDelegate:self andAppKey:sirqulAppKey andPrivateKey:sirqulPrivateKey];
+	[interface setStatus:kSirqulStatusGetWalletOffers];
+	[interface searchWalletOffersWithAccountId:[[NSUserDefaults standardUserDefaults]objectForKey:@"accountId"] andKeyword:nil andRetailerId:nil andRetailerLocationId:nil andOfferType:kOfferTypeNULL andSortField:kRetailerApiMapNULL andDescending:nil andStart:[NSNumber numberWithInteger:0] andLimit:[NSNumber numberWithInteger:50] andLocation:nil andRedeemed:nil];
+	</pre>
+</code>
+<p>Then, just grab the results in <i>networkRequestDidSucceed:withInterface:</i> and display them as you see fit.</p>
+
+<p><h2>Part 7: Viewing details of an offer from the wallet</h2></p>
+<p>This part of the tutorial is very similar to part #2, but since we have made it to the <i>DDOfferDetailViewController</i> by tapping an offer in the wallet, the <i>cameFromWallet</i> boolean is now true.  One big difference between an offer on the map and an offer in a user's wallet, is that the wallet item has a <i>transactionId</i> associated with it.  The <i>transactionId</i> is what differentiates the offer in one user's wallet from the same offer in another user's wallet.  That being said, we just use the same chunk of code as before in part #2:</p>
+<code>
+	<pre>
+	SirqulNetworkInterface *interface = [[SirqulNetworkInterface alloc]initWithDelegate:self andAppKey:sirqulAppKey andPrivateKey:sirqulPrivateKey];
+	if (cameFromWallet) {
+		[interface setStatus:kSirqulStatusGetOffer];
+		[interface getOfferTransactionWithAccountId:[[NSUserDefaults standardUserDefaults]objectForKey:@"accountId"] andTransactionId:[NSNumber numberWithInteger:transactionId] andIncludeMission:nil andLocation:nil];
+	}else{
+		[interface setStatus:kSirqulStatusGetOffer];
+		[interface getOfferDetailsWithAccountId:[[NSUserDefaults standardUserDefaults]objectForKey:@"accountId"] andOfferId:nil andOfferLocationId:[NSNumber numberWithInteger:offerLocationId] andDistance:nil andLocation:nil];
+	}
+	</pre>
+</code>
+
+<p><h2>Part 8: Setting the redemptionStatus of an offer from the wallet</h2></p>
+<p>An offer in a user's wallet will have a <i>redemptionStatus</i>.  A status of 0 means the offer is in a non-redeemable state, a status of 1 means the offer is in a redeemable state, and a status of 2 means the offer has already been redeemed.  In the following code, we look at the <i>redemptionStatus</i> of the wallet item and either set the status to 1 (redeemable) or do nothing if it is already 2 (redeemed).
+<code>
+	<pre>
+	if ([SNIHelper checkDictionary:offer objectForKey:@"offerLocationId"]) {
+		NSInteger redemptionStatus = 0;
+		if ([SNIHelper checkDictionary:offer objectForKey:@"redemptionStatus"]) {
+			redemptionStatus = [[offer objectForKey:@"redemptionStatus"]integerValue];
+		}
+		if (redemptionStatus == 0 || redemptionStatus == 1) {
+			SirqulNetworkInterface *interface = [[SirqulNetworkInterface alloc]initWithDelegate:self andAppKey:sirqulAppKey andPrivateKey:sirqulPrivateKey];
+			[interface setStatus:kSirqulStatusUpdateWalletOfferStatus];
+			[interface updateWalletOfferStatusWithAccountId:[[NSUserDefaults standardUserDefaults]objectForKey:@"accountId"] andTransactionId:[NSNumber numberWithInteger:transactionId] andOfferLocationId:[NSNumber numberWithInteger:offerLocationId] andUsePoints:[NSNumber numberWithBool:NO] andStatus:[NSNumber numberWithInteger:1]];
+		}else if (redemptionStatus == 2) {
+			[[[UIAlertView alloc]initWithTitle:@"This offer has already been redeemed!" message:nil delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+		}
+	}
+	</pre>
+</code>
+<p>If the status was 1 or 0, in the <i>networkRequestDidSucceed:withInterface:</i> we bring the user to the <i>DDQRCodeViewController</i> so they can redeem the offer.
+<code>
+	<pre>
+	DDQRCodeViewController *qrcvc = [[DDQRCodeViewController alloc]initWithOffer:jsonData];
+	[self.navigationController pushViewController:qrcvc animated:YES];
+	</pre>
+</code>
+<p><h2>Part 9: Redeeming an offer</h2></p>
+<p>Redeeming an offer can be done in one of two ways.  The first is by having the consumer display a QR code on their device in the <i>DDQRCodeViewController</i>, which is the controller we pushed in part #6 of this tutorial.  The merchant would then scan this QR code with their merchant app and set the <i>redemptionStatus</i> of that wallet item to 2 (redeemed), but this tutorial will not cover that process.  The second way to redeem an offer is by having the consumer scan a QR code that the merchant provides.  This QR code will simply be a JSON structure that shows the <i>retailerLocationId</i> of the merchant, if that ID matches the <i>retailerLocationId</i> that is associated with the offer in the consumer's wallet, then the <i>redemptionStatus</i> is set to 2 (redeemed).  This is done in the <i>DDScanBarcodeViewController</i> after tapping "Merchant can't scan?" on the <i>DDQRCodeViewController</i>.  Once the QR code is scanned, the following code is run to determine if the IDs match:</p>
+<code>
+	<pre>
+	NSDictionary *resultDict = [NSJSONSerialization JSONObjectWithData:[result.text dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:nil];
+	NSInteger qrRetailerLocationId = 0;
+	if ([SNIHelper checkDictionary:resultDict objectForKey:@"locationId"]) {
+		qrRetailerLocationId = [[resultDict objectForKey:@"locationId"]integerValue];
+	}
+	BOOL valid = NO;
+	if ([SNIHelper checkDictionary:offer objectForKey:@"location"]) {
+		NSDictionary *location = [offer objectForKey:@"location"];
+		if ([SNIHelper checkDictionary:location objectForKey:@"retailerLocationId"]) {
+			NSInteger offerRLId = [[location objectForKey:@"retailerLocationId"]integerValue];
+			if (offerRLId == qrRetailerLocationId && qrRetailerLocationId != 0) {
+				valid = YES;
+				NSString *title = @"Redeem now?";
+				NSString *button = @"Redeem";
+				UIAlertView *redeemAlertView = [[UIAlertView alloc]initWithTitle:@"Confirmation" message:title delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:button, nil];
+				[redeemAlertView setTag:123];
+				[redeemAlertView show];
+			}
+		}
+	}
+	if (!valid) {
+		UIAlertView *sorryAlert = [[UIAlertView alloc]initWithTitle:@"Sorry" message:@"Offers do not match" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+		[sorryAlert setTag:1];
+		[sorryAlert show];
+	}
+	</pre>
+</code>
+<p>If the IDs match and the user taps "Redeem" on the alert view, then the following code is run to redeem the offer:<p>
+<code>
+	<pre>
+	SirqulNetworkInterface *interface = [[SirqulNetworkInterface alloc]initWithDelegate:self andAppKey:sirqulAppKey andPrivateKey:sirqulPrivateKey];
+	[interface setStatus:kSirqulStatusUpdateVoucherStatus];
+	[interface updateVoucherStatusWithAccountId:[[NSUserDefaults standardUserDefaults] objectForKey:@"accountId"] andOfferTransactionId:[NSNumber numberWithInteger:[[offer objectForKey:@"transactionId"]integerValue]] andStatus:[NSNumber numberWithInteger:2]];
+	</pre>
+</code>
+<p>Once the response comes back as valid we just show a success message and pop the view controller.</p>
+
+<p><h2>Part 10: Starting a Mission</h2></p>
+<p>In order to complete this portion of the tutorial, please make sure there is an offer with a mission associated that is available for your app to use.  If not, one can be created at the <a href="http://dev.sirqul.com/missions/viewall">Missions section</a> of the Sirqul developer site.</p>
+<p>If an offer has a mission and reward associated with it, a user must complete the mission before getting the reward.  To see if there is a mission associated with the offer, you can look inside the missionListResponse field of the offer response which will look something like this if there are missions associated:</p>
+<code>
+	<pre>
+	missionListResponse =     {
+        count = 1;
+        countTotal = 0;
+        hasMoreResults = 0;
+        items =         (
+    	    ...
+        )
+    }
+    </pre>
+</code>
+<p>Inside the <i>offerButtonPressed:</i> method in <i>DDOfferDetailViewController</i>, we check to see if there is a mission associated with the offer with <i>offerHasMissions</i>, if it does, then we accept the mission with the <i>createMissionInviteWithAccountId:andMissionId:andPermissionableType:andPermissionableId:andIncludeGameData:</i> method.<p>
+<code>
+	<pre>
+	NSDictionary *fullMission = [self offerFullMission];
+	SirqulNetworkInterface *interface = [[SirqulNetworkInterface alloc]initWithDelegate:self andAppKey:sirqulAppKey andPrivateKey:sirqulPrivateKey];
+	[interface setStatus:kSirqulStatusCreateMissionInvite];
+	[interface createMissionInviteWithAccountId:[[NSUserDefaults standardUserDefaults]objectForKey:@"accountId"] andMissionId:[NSNumber numberWithInteger:[[fullMission objectForKey:@"missionId"]integerValue]] andPermissionableType:kPermissionableTypeNULL andPermissionableId:nil andIncludeGameData:nil];
+	</pre>
+</code>
+<p>Now that the mission has been accepted, take the response and pass it into the initialization method of <i>DDPictureMissionViewController</i>, and push the new view.  Notice that if the <i>type</i> in the mission's <i>gameData</i> is not "photo" then we don't push the controller.  "Photo" is the only mission type supported in this tutorial, but there are many more for you to choose from in your own app.<p>
+<code>
+	<pre>
+	if ([SNIHelper checkDictionary:jsonData objectForKey:@"item"]) {
+		NSDictionary *fullMission = [self offerFullMission];
+		NSDictionary *mission = [self offerMissionData];
+		if ([SNIHelper checkDictionary:mission objectForKey:@"gameData"]) {
+			NSString *gameDataString = [mission objectForKey:@"gameData"];
+			NSDictionary *gameData = [NSJSONSerialization JSONObjectWithData:[gameDataString dataUsingEncoding:NSStringEncodingConversionAllowLossy] options:0 error:nil];
+			if ([SNIHelper checkDictionary:gameData objectForKey:@"type"]) {
+				NSString *type = [gameData objectForKey:@"type"];
+				if ([type isEqualToString:@"photo"]) {
+					DDPictureMissionViewController *pmvc = [[DDPictureMissionViewController alloc]initWithMission:[jsonData objectForKey:@"item"] andGameData:gameData];
+					[self.navigationController pushViewController:pmvc animated:YES];
+				}else{
+					[[[UIAlertView alloc]initWithTitle:@"Sorry" message:@"This tutorial only supports photo missions" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil]show];
+				}
+			}
+		}
+	}
+	</pre>
+</code>
+
+<p><h2>Part 11: Completing a Mission</h2></p>
+<p>There are two types of missions, those that require submissions to be approved, and those that do not.  Missions that require something simple such as sharing to Facebook do not need its submissions to be approved, where as a mission that requires a consumer to take a picture of their meal would need its submission to be approved to make sure they actually took a picture of their meal.  Since we are doing a photo mission, the submission will require approval, which can be done on the <a href="http://dev.sirqul.com/missioninvites/viewall">Challenges section</a> on the Sirqul developer site.</p>
+<p>To submit a user's content, we use the <i>updateMissionInviteWithAccountId:andMissionId:andMissionInviteId:andMissionInviteStatus:andPermissionableType:andPermissionableId:andIncludeGameData:</i> method, but for the purpose of this tutorial we will go through the process of creating an album with an asset, attaching a comment to the asset, and submitting the album for approval.  The album is created in the <i>submitPressed</i> method:<p>
+<code>
+	<pre>
+	SirqulNetworkInterface *interface = [[SirqulNetworkInterface alloc]initWithDelegate:self andAppKey:sirqulAppKey andPrivateKey:sirqulPrivateKey];
+	[interface setStatus:kSirqulStatusAddAlbum];
+	[interface addAlbumWithAccountId:[[NSUserDefaults standardUserDefaults]objectForKey:@"accountId"] andTitle:albumName andMedia:UIImagePNGRepresentation(missionPic) andAttachedMedia:nil andAttachedMediaIsVideo:nil andAttachedMediaURL:nil andCoverAssetNullable:nil andStartDate:0 andEndDate:0 andTags:nil andDescription:nil andPublicRead:[NSNumber numberWithBool:YES] andpublicWrite:[NSNumber numberWithBool:NO] andPublicDelete:[NSNumber numberWithBool:NO] andPublicAdd:[NSNumber numberWithBool:NO] andLocation:nil andLocationDescription:desc andAlbumType:nil andVisibility:kVisibilityPRIVATE andIncludeCoverInAssetList:[NSNumber numberWithBool:YES]];
+	</pre>
+</code>
+<p>When we get the response in <i>networkRequestDidSucceed:withInterface:</i>, we update the asset's info with <i>updateMediaWithAccountId:andAssetId:andAlbumId:andAttachedAssetId:andCaption:andLocationDescription:andLocation:</i>, add a comment with <i>addOrUpdateNoteWithAccountId:andNotableType:andNotableId:andNoteId:andComment:andAssetIds:andTags:andPermissionableType:andPermissionableId:andLocationDescription:andLocation:</i>, and then update the mission with <i>updateMissionInviteWithAccountId:andMissionId:andMissionInviteId:andMissionInviteStatus:andPermissionableType:andPermissionableId:andIncludeGameData:</i>.<p>
+<code>
+	<pre>
+	-(void)networkRequestDidSucceed:(NSDictionary *)jsonData withInterface:(SirqulNetworkInterface *)sni{
+		if ([[jsonData objectForKey:@"valid"]integerValue] == 1) {
+			if (sni.status == kSirqulStatusAddAlbum){
+				albumId = [[jsonData objectForKey:@"albumId"]integerValue];
+				NSDictionary *coverAsset = [jsonData objectForKey:@"coverAsset"];
+				if ([SNIHelper checkDictionary:coverAsset objectForKey:@"assetId"]) {
+					assetId = [[coverAsset objectForKey:@"assetId"]integerValue];
+				}
+				SirqulNetworkInterface *interface = [[SirqulNetworkInterface alloc]initWithDelegate:self andAppKey:sirqulAppKey andPrivateKey:sirqulPrivateKey];
+				[interface setStatus:kSirqulStatusUpdateMedia];
+				[interface updateMediaWithAccountId:[[NSUserDefaults standardUserDefaults]objectForKey:@"accountId"] andAssetId:[NSNumber numberWithInteger:assetId] andAlbumId:[NSNumber numberWithInteger:albumId] andAttachedAssetId:nil andCaption:titleTextField.text andLocationDescription:nil andLocation:nil];
+			}else if (sni.status == kSirqulStatusUpdateMedia) {
+				SirqulNetworkInterface *interface = [[SirqulNetworkInterface alloc]initWithDelegate:self andAppKey:sirqulAppKey andPrivateKey:sirqulPrivateKey];
+				[interface setStatus:kSirqulStatusAddOrUpdateNote];
+				[interface addOrUpdateNoteWithAccountId:[[NSUserDefaults standardUserDefaults]objectForKey:@"accountId"] andNotableType:kClassNameApiMapASSET andNotableId:[NSNumber numberWithInteger:assetId] andNoteId:nil andComment:commentTextView.text andAssetIds:nil andTags:nil andPermissionableType:kPermissionableTypeALBUM andPermissionableId:[NSNumber numberWithInteger:albumId] andLocationDescription:nil andLocation:nil];
+			}else if (sni.status == kSirqulStatusAddOrUpdateNote) {
+				SirqulNetworkInterface *interface = [[SirqulNetworkInterface alloc]initWithDelegate:self andAppKey:sirqulAppKey andPrivateKey:sirqulPrivateKey];
+				[interface setStatus:kSirqulStatusUpdateMissionInvite];
+				[interface updateMissionInviteWithAccountId:[[NSUserDefaults standardUserDefaults]objectForKey:@"accountId"] andMissionId:[NSNumber numberWithInteger:missionId] andMissionInviteId:nil andMissionInviteStatus:kMissionInviteStatusPENDING_REVIEW andPermissionableType:kPermissionableTypeALBUM andPermissionableId:[NSNumber numberWithInteger:albumId] andIncludeGameData:nil];
+			}else if (sni.status == kSirqulStatusUpdateMissionInvite) {
+				UIAlertView *success = [[UIAlertView alloc]initWithTitle:@"Pending Review" message:@"Thank you for your submission!  Your photo, title, and description are currently under review.  Upon approval, you will receive a notification and your reward will be added to your wallet." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+				[success setTag:1];
+				[success show];
+			}
+		}
+	}
+	</pre>
+</code>
+<p>Once the submission has been approved by the mission creator, the reward will be automatically added to the user's wallet, and they will receive a notification telling them so.
